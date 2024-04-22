@@ -2,8 +2,14 @@ const mongoose = require('mongoose');
 const cities = require('./cities');
 const { items, descriptors } = require('./seedHelpers');
 const Geocache = require('../models/geocache');
+const dbUrl = process.env.DB_URL;
 
-mongoose.connect('mongodb://localhost:27017/cache-me');
+mongoose.connect(dbUrl, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
+});
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
