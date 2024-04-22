@@ -28,12 +28,7 @@ const ratingRoutes = require('./routes/ratings');
 const profileRoutes = require('./routes/profiles');
 
 
-mongoose.connect(dbUrl, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false
-});
+mongoose.connect(dbUrl);
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
