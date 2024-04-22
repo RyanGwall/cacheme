@@ -1,0 +1,62 @@
+<% layout('/layouts/boilerplate')%>
+    <link rel="stylesheet" href="/stylesheets/images.css" class="rel">
+    <div class="row">
+        <h1 class="text-center">Add New Geocache</h1>
+        <div class="col-md-6 offset-md-3">
+            <form action="/geocaches" method="POST" novalidate class="validatedForm" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label class="form-label" for="title">Title</label>
+                    <input class="form-control" type="text" id="title" name="geocache[title]" required>
+                    <div class="valid-feedback">
+                        Valid Entry!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="location">Location</label>
+                    <input class="form-control" type="text" id="location" name="geocache[location]" required>
+                    <div class="valid-feedback">
+                        Valid Entry!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Choose Image(s)</label>
+                    <div class="form-file custom-file">
+                        <input class="form-control custom-file-input" type="file" id="image" name="image" multiple
+                            onchange="previewMultiple(event)">
+                        <label for="image" class="form-label custom-file-label"></label>
+                    </div>
+                    <div id="formFile"></div>
+                </div>
+                <!-- <div class="mb-3">
+                    <label class="form-label" for="image">Image URL</label>
+                    <input class="form-control" type="text" id="image" name="geocache[image]" required>
+                    <div class="valid-feedback">
+                        Valid Entry!
+                    </div> -->
+                <!-- </div> -->
+                <div class="mb-3">
+                    <label class="form-label" for="value">Geocache Value</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="value">$</span>
+                        <input type="text" class="form-control" id="value" placeholder="0.00" aria-label="value"
+                            aria-describedby="value-label" name="geocache[value]" required>
+                        <div class="valid-feedback">
+                            Valid Entry!
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="description">Description</label>
+                    <textarea class="form-control" type="text" id="description" name="geocache[description]"
+                        required></textarea>
+                    <div class="valid-feedback">
+                        Valid Entry!
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <button class="btn btn-success">Add Geocache</button>
+                </div>
+
+            </form>
+        </div>
+    </div>

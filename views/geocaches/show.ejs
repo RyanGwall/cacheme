@@ -1,0 +1,184 @@
+<% layout('/layouts/boilerplate')%>
+    <link rel="stylesheet" href="/stylesheets/stars.css">
+
+    <div class="row">
+        <div class="col-6">
+            <% if(signedInUser){%>
+                <h2>Leave Ratings and Comments</h2>
+                <form action="/geocaches/<%= geocache._id %>/ratings" method='POST' class="mb-3 validatedForm"
+                    novalidate>
+
+
+                    <fieldset class="starability-basic">
+                        <legend>Fun?</legend>
+                        <input type="radio" id="no-rate" class="input-no-rate" name="rating[funRating]" value="0"
+                            checked aria-label="No rating." />
+                        <input type="radio" id="first-rate1" name="rating[funRating]" value="1" />
+                        <label for="first-rate1" title="Terrible">1 star</label>
+                        <input type="radio" id="first-rate2" name="rating[funRating]" value="2" />
+                        <label for="first-rate2" title="Not good">2 stars</label>
+                        <input type="radio" id="first-rate3" name="rating[funRating]" value="3" />
+                        <label for="first-rate3" title="Average">3 stars</label>
+                        <input type="radio" id="first-rate4" name="rating[funRating]" value="4" />
+                        <label for="first-rate4" title="Very good">4 stars</label>
+                        <input type="radio" id="first-rate5" name="rating[funRating]" value="5" />
+                        <label for="first-rate5" title="Amazing">5 stars</label>
+                    </fieldset>
+                    <div class="mb-3">
+
+                    </div>
+
+                    <fieldset class="starability-basic">
+                        <legend>Difficulty?</legend>
+                        <input type="radio" id="no-rate" class="input-no-rate" name="rating[difficultyRating]" value="0"
+                            checked aria-label="No rating." />
+                        <input type="radio" id="second-rate1" name="rating[difficultyRating]" value="1" />
+                        <label for="second-rate1" title="Terrible">1 star</label>
+                        <input type="radio" id="second-rate2" name="rating[difficultyRating]" value="2" />
+                        <label for="second-rate2" title="Not good">2 stars</label>
+                        <input type="radio" id="second-rate3" name="rating[difficultyRating]" value="3" />
+                        <label for="second-rate3" title="Average">3 stars</label>
+                        <input type="radio" id="second-rate4" name="rating[difficultyRating]" value="4" />
+                        <label for="second-rate4" title="Very good">4 stars</label>
+                        <input type="radio" id="second-rate5" name="rating[difficultyRating]" value="5" />
+                        <label for="second-rate5" title="Amazing">5 stars</label>
+                    </fieldset>
+
+                    <div class="mb-3">
+
+                    </div>
+                    <fieldset class="starability-basic">
+                        <legend>Overall?</legend>
+                        <input type="radio" id="no-rate" class="input-no-rate" name="rating[overallRating]" value="0"
+                            checked aria-label="No rating." />
+                        <input type="radio" id="third-rate1" name="rating[overallRating]" value="1" />
+                        <label for="third-rate1" title="Terrible">1 star</label>
+                        <input type="radio" id="third-rate2" name="rating[overallRating]" value="2" />
+                        <label for="third-rate2" title="Not good">2 stars</label>
+                        <input type="radio" id="third-rate3" name="rating[overallRating]" value="3" />
+                        <label for="third-rate3" title="Average">3 stars</label>
+                        <input type="radio" id="third-rate4" name="rating[overallRating]" value="4" />
+                        <label for="third-rate4" title="Very good">4 stars</label>
+                        <input type="radio" id="third-rate5" name="rating[overallRating]" value="5" />
+                        <label for="third-rate5" title="Amazing">5 stars</label>
+                    </fieldset>
+
+                    <div class="mb-3">
+
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="body">Comment</label>
+                        <textarea class="form-control" name="rating[body]" id="b" cols="30" rows="3"
+                            required></textarea>
+                        <div class="valid-feedback">
+                            Valid Entry!
+                        </div>
+                    </div>
+                    <button class="btn btn-warning">Submit Cache Review</button>
+                </form>
+                <% } %>
+                    <% for(let rating of geocache.ratings) { %>
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h3>Fun Rating</h3>
+                                <p class="starability-result" data-rating="<%= rating.funRating %>">
+                                    Rated: <%= rating.funRating %> stars
+                                </p>
+                                <h3>Difficulty Rating</h3>
+                                <p class="starability-result" data-rating="<%= rating.difficultyRating %>">
+                                    Rated: <%= rating.difficultyRating %> stars
+                                </p>
+                                <h3>Overall Rating</h3>
+                                <p class="starability-result" data-rating="<%= rating.overallRating %>">
+                                    Rated: <% rating.overallRating %> stars
+                                </p>
+                                <p class="card-text">
+                                    Comments:
+                                    <b>
+                                        <%= rating.body %>
+                                    </b>
+                                </p>
+                                <h6 class="card-title mb-2 text-muted"> @ <%= rating.owner.username %>
+                                </h6>
+                                <!-- <% if( signedInUser && rating.owner.equals(signedInUser._id)) { %> -->
+                                <form action="/geocaches/<%= geocache._id%>/ratings/<%= rating._id%>?_method=DELETE"
+                                    method="POST">
+                                    <button class="btn btn-sm btn-danger">Delete Comment</button>
+                                </form>
+                                <!-- <% } %> -->
+                            </div>
+                        </div>
+                        <% } %>
+        </div>
+        <div class="col-6">
+            <div id='map'></div>
+            <div id="geocacheCarousel" class="carousel slide">
+                <div class="carousel-inner">
+                    <% geocache.images.forEach((img, i)=> { %>
+                        <div class="carousel-item <%=i === 0 ? 'active': '' %> ">
+                            <img crossorigin="anonymous" src="<%=img.url %>" class="d-block w-100" alt="...">
+                        </div>
+                        <% }) %>
+
+                            <% if(geocache.images.length> 1) {%>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#geocacheCarousel"
+                                    data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#geocacheCarousel"
+                                    data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                                <% } %>
+                </div>
+            </div>
+
+
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <%= geocache.title%>
+                    </h5>
+                    <p class="card-text">
+                        <%= geocache.description%>
+                    </p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-muted">
+                        <%= geocache.location%>
+                    </li>
+                    <li class="list-group-item">
+
+                        Original Cache Owner: <b>
+                            <%= geocache.owner.username%>
+                        </b>
+                    </li>
+                    <li class="list-group-item">Value of $<%= geocache.value%> in the Geocache!
+                    </li>
+                </ul>
+                <% if( signedInUser && geocache.owner.equals(signedInUser._id)) { %>
+                    <div class="card-body">
+                        <a href="/geocaches/<%= geocache._id%>/edit" class="card-link btn btn-success">Edit</a>
+                        <form class="d-inline" action="/geocaches/<%=geocache._id%>?_method=DELETE" method="POST">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                    <% } %>
+                        <div class="card-footer text-muted">
+                            5 days ago
+                        </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script>
+        const mapboxToken = '<%-process.env.MAPBOX_TOKEN%>';
+        const geocache = <%-JSON.stringify(geocache)%>;
+    </script>
+
+    <script src="/js/showpageMap.js"></script>

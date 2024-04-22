@@ -1,0 +1,38 @@
+<% layout('layouts/boilerplate') %>
+<div class="container d-flex justify-content-center align-items-center mt-5">
+    <div class="row flex-fill">
+        <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
+            <div class="card shadow">
+                <img src="https://images.unsplash.com/photo-1608924066819-930edc42986a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2664&q=80" alt="" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Sign In</h5>
+                <form action="/signin" class="validatedForm" novalidate method="POST">
+                    <div class="mb-3">
+                        <label class="form-label" for="username"><b>Username</b></label>
+                        <input class="form-control" type="text" id="username" name="username" autofocus required>
+                        <div class="valid-feedback">
+                            Valid Username!
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="password"><b>Password</b></label>
+                        <input class="form-control" type="password" id="password" name="password" required>
+                        <div class="valid-feedback">
+                            Valid Password!
+                        </div>
+                    </div>
+                    <div class="d-grid">
+                    <button class="btn btn-success">Sign In</button>
+                    </div>
+                </form>
+                <div class="div mt-5">
+                    <a class="link" href="/register">Don't have an account? Click Here to Register!</a>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-3">
+
+        </div>
+    </div>
+</div>

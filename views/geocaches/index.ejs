@@ -1,0 +1,42 @@
+<% layout('/layouts/boilerplate')%>
+<div id="cluster-map"></div>
+    <h1>All Geocaches</h1>
+    <div>
+    </div>
+    <% for (let geocache of geocaches) {%>
+        <div class="card mb-3" style="background-color: rgba(206, 206, 206, 0.836);">
+            <div class="row">
+                <div class="col-md-4">
+                    <% if (geocache.images.length) {%>
+                        <img crossorigin="anonymous" class="img-fluid" alt="" src="<%=geocache.images[0].url%>">
+                        <% }else { %>
+                            <img crossorigin="anonymous" class="img-fluid" alt="" src="https://res.cloudinary.com/dhqyvrb9y/image/upload/v1694162650/CacheMe/hcmxnezkcnwwrdqc67fi.jpg">
+                            <% } %>
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%= geocache.title %>
+                        </h5>
+                        <p class="card-text">
+                            <%= geocache.description %>
+                        </p>
+                        <p class="card-text">
+                            <small class="text-muted">
+                                <%= geocache.location %>
+                            </small>
+                        </p>
+                        <a class="btn btn-primary" href="/geocaches/<%= geocache._id %>">View <%= geocache.title %></a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%}%>
+
+        <script>
+            const mapboxToken = '<%-process.env.MAPBOX_TOKEN%>';
+            const geocaches = {features: <%-JSON.stringify(geocaches)%>};
+        </script>
+
+        <script src="/js/clusterMap.js"></script>
